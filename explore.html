@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Wise - Construction Materials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: #2d2d2d;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            height: 45px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #e5e5e5;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fbbf24;
+        }
+
+        .user-profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a1a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .user-profile:hover {
+            transform: scale(1.1);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #e5e5e5;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1a1a;
+            padding: 70px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="2" height="2" fill="black" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .hero-stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Search Bar */
+        .search-section {
+            max-width: 1200px;
+            margin: -30px auto 50px;
+            padding: 20 70px;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            padding: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-icon {
+            font-size: 24px;
+            color: #fbbf24;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 2px solid #3d3d3d;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s;
+            background: #2d2d2d;
+            color: #e5e5e5;
+        }
+
+        .search-input::placeholder {
+            color: #888;
+        }
+
+        .search-input:focus {
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+
+        .filter-select {
+            padding: 12px 15px;
+            border: 2px solid #3d3d3d;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            cursor: pointer;
+            background: #2d2d2d;
+            color: #e5e5e5;
+            transition: all 0.3s;
+        }
+
+        .filter-select:focus {
+            border-color: #fbbf24;
+        }
+
+        .search-btn {
+            padding: 12px 35px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Content */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #a0a0a0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Materials Grid */
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .material-card {
+            background: #2d2d2d;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .material-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .material-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .material-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(251, 191, 36, 0.3);
+        }
+
+        .material-image-wrapper {
+            width: 100%;
+            height: 200px;
+            background: #3d3d3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .material-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.4s;
+        }
+
+        .material-card:hover .material-image {
+            transform: scale(1.05);
+        }
+
+        .material-content {
+            padding: 25px;
+        }
+
+        .material-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        .material-description {
+            color: #a0a0a0;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .material-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #3d3d3d;
+        }
+
+        .material-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1a1a;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .material-action {
+            color: #fbbf24;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Categories Section */
+        .categories-section {
+            background: #2d2d2d;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 60px;
+        }
+
+        .categories-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .category-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            background: #3d3d3d;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #e5e5e5;
+        }
+
+        .category-item:hover {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1a1a1a;
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0d0d0d;
+            color: white;
+            padding: 50px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+
+        .footer-logo {
+            height: 50px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-description {
+            color: #a0aec0;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-link {
+            color: #a0aec0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #fbbf24;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2d2d2d;
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                right: 0;
+                background: #2d2d2d;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                gap: 15px;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-stats {
+                gap: 30px;
+            }
+
+            .hero-stat-number {
+                font-size: 28px;
+            }
+
+            .search-container {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .search-input,
+            .filter-select,
+            .search-btn {
+                width: 100%;
+            }
+
+            .materials-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .section-subtitle {
+                font-size: 16px;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-stats {
+                gap: 20px;
+            }
+
+            .hero-stat-number {
+                font-size: 24px;
+            }
+
+            .search-section {
+                margin: -20px auto 30px;
+            }
+
+            .section-header {
+                margin-bottom: 30px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .categories-section {
+                padding: 25px 20px;
+            }
+
+            .material-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <img src="logo.img.png" alt="Build Wise" class="logo">
+            <nav class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#materials" class="nav-link">Materials</a>
+                <a href="#" class="nav-link">Services</a>
+                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link">Contact</a>
+            </nav>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="user-profile" id="userProfile" title="Click to logout">JD</div>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Premium Construction Materials</h1>
+            <p>Your trusted partner for high-quality building materials. From foundation to finish, we've got you covered.</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-number">500+</span>
+                    <span class="hero-stat-label">Projects Completed</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">250+</span>
+                    <span class="hero-stat-label">Happy Clients</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">15+</span>
+                    <span class="hero-stat-label">Years Experience</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" placeholder="Search for cement, bricks, steel, pipes...">
+            <select class="filter-select" id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="cement">Cement</option>
+                <option value="bricks">Bricks & Blocks</option>
+                <option value="steel">Steel & Metal</option>
+                <option value="pipes">Pipes & Fittings</option>
+                <option value="sanitary">Sanitary Ware</option>
+                <option value="other">Other Materials</option>
+            </select>
+            <button class="search-btn">Search</button>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="content">
+        <!-- Categories -->
+        <div class="categories-section">
+            <h2 class="categories-title">Browse by Category</h2>
+            <div class="categories-grid">
+                <div class="category-item" data-category="cement">
+                    <div class="category-icon">🏗️</div>
+                    <div class="category-name">Cement</div>
+                </div>
+                <div class="category-item" data-category="bricks">
+                    <div class="category-icon">🧱</div>
+                    <div class="category-name">Bricks</div>
+                </div>
+                <div class="category-item" data-category="steel">
+                    <div class="category-icon">⚙️</div>
+                    <div class="category-name">Steel</div>
+                </div>
+                <div class="category-item" data-category="pipes">
+                    <div class="category-icon">🚰</div>
+                    <div class="category-name">Pipes</div>
+                </div>
+                <div class="category-item" data-category="sanitary">
+                    <div class="category-icon">🚿</div>
+                    <div class="category-name">Sanitary</div>
+                </div>
+                <div class="category-item" data-category="other">
+                    <div class="category-icon">🔧</div>
+                    <div class="category-name">Others</div>
+                </div>
+                <div class="category-item" data-category="all">
+                    <div class="category-icon">📦</div>
+                    <div class="category-name">View All</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Materials Section -->
+        <div class="section-header" id="materials">
+            <h2 class="section-title">Our Products</h2>
+            <p class="section-subtitle">Top-quality construction materials from trusted brands for all your building needs</p>
+        </div>
+
+        <div class="materials-grid" id="materialsGrid">
+            <!-- Materials will be dynamically loaded here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="logo.img.png" alt="Build Wise" class="footer-logo">
+                    <p class="footer-description">
+                        Your trusted partner for premium construction materials. Building dreams, one brick at a time.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">About Us</a>
+                        <a href="#" class="footer-link">Our Products</a>
+                        <a href="#" class="footer-link">Services</a>
+                        <a href="#" class="footer-link">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Products</h3>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Cement</a>
+                        <a href="#" class="footer-link">Bricks</a>
+                        <a href="#" class="footer-link">Steel</a>
+                        <a href="#" class="footer-link">Pipes & Fittings</a>
+                        <a href="#" class="footer-link">Sanitary Ware</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="footer-links">
+                        <a href="tel:+92" class="footer-link">📞 +92 XXX XXXXXXX</a>
+                        <a href="mailto:info@buildwise.com" class="footer-link">✉️ info@buildwise.com</a>
+                        <a href="#" class="footer-link">📍 Lahore, Pakistan</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Build Wise Construction. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+         const userData = JSON.parse(localStorage.getItem('buildWiseUser') || '{}');
+
+    if (!userData.isLoggedIn) {
+        alert('Please login to access this page');
+        window.location.href = 'login.html';
+    }
+
+    // 🔵 Display user initials
+    if (userData.email) {
+        const initials = userData.email.substring(0, 2).toUpperCase();
+        document.getElementById('userProfile').textContent = initials;
+    }
+
+    // 🔴 Logout function
+    function logout() {
+        localStorage.removeItem('buildWiseUser');
+        window.location.href = 'login.html';
+    }
+
+    // 🔴 Add logout to user profile click
+    document.getElementById('userProfile').addEventListener('click', function() {
+        if (confirm('Do you want to logout?')) {
+            logout();
+        }
+    });
+
+    // 🍔 Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+    });
+
+        // Construction materials data
+        const materials = [
+            {
+                name: 'Lucky Cement',
+                description: 'Premium quality cement for all construction needs. High strength and durability guaranteed.',
+                image: 'image/m1.jpeg',
+                badge: 'Best Seller',
+                category: 'cement'
+            },
+            {
+                name: 'DG Khan Cement',
+                description: 'Superior grade cement with excellent binding properties. Ideal for large-scale projects.',
+                image: 'image/m2.jpeg',
+                badge: 'Top Quality',
+                category: 'cement'
+            },
+            {
+                name: 'Red Brick',
+                description: 'High-quality clay bricks for durable and strong construction. Perfect for walls and structures.',
+                image: 'image/m3.jpeg',
+                badge: 'Premium Quality',
+                category: 'bricks'
+            },
+            {
+                name: 'Concrete Blocks',
+                description: 'Heavy-duty concrete blocks for robust construction. Excellent insulation and fire resistance.',
+                image: 'image/m4.jpeg',
+                badge: 'Industrial Grade',
+                category: 'bricks'
+            },
+            {
+                name: 'Moiz Steel',
+                description: 'Strong and reliable steel bars for reinforcement. Meets international quality standards.',
+                image: 'image/m5.jpeg',
+                badge: 'High Grade',
+                category: 'steel'
+            },
+            {
+                name: 'Steel Angles & Channels',
+                description: 'Structural steel sections for frameworks and support systems. Various sizes available.',
+                image: 'image/m6.jpeg',
+                badge: 'Professional',
+                category: 'steel'
+            },
+            {
+                name: 'Steel Wire Mesh',
+                description: 'Heavy-duty wire mesh for concrete reinforcement and fencing. Galvanized for rust protection.',
+                image: 'image/m7.jpeg',
+                badge: 'Durable',
+                category: 'steel'
+            },
+            {
+                name: 'PVC Pipes',
+                description: 'Durable pipes for plumbing and drainage systems. Chemical and corrosion resistant.',
+                image: 'image/m8.jpeg',
+                badge: 'Top Quality',
+                category: 'pipes'
+            },
+            {
+                name: 'HDPE Pipes',
+                description: 'High-density polyethylene pipes for water supply and gas distribution. UV resistant.',
+                image: 'image/m9.jpeg',
+                badge: 'Premium',
+                category: 'pipes'
+            },
+            {
+                name: 'Copper Pipes',
+                description: 'Premium copper piping for hot water systems and HVAC. Antimicrobial properties.',
+                image: 'image/m10.jpeg',
+                badge: 'Luxury',
+                category: 'pipes'
+            },
+            {
+                name: 'Sanitary Ware Set',
+                description: 'Modern fixtures for bathrooms and kitchens. Elegant design with superior functionality.',
+                image: 'image/m11.jpeg',
+                badge: 'Premium',
+                category: 'sanitary'
+            },
+            {
+                name: 'Bathroom Fittings',
+                description: 'Chrome-plated taps, showers, and accessories. Water-saving technology included.',
+                image: 'image/m12.jpeg',
+                badge: 'Eco-Friendly',
+                category: 'sanitary'
+            },
+            {
+                name: 'Kitchen Sink',
+                description: 'Stainless steel sinks with sound dampening pads. Double bowl design available.',
+                image: 'image/m13.jpeg',
+                badge: 'Modern',
+                category: 'sanitary'
+            },
+            {
+                name: 'Wall Tiles',
+                description: 'Ceramic and porcelain tiles in various designs. Slip-resistant and easy to clean.',
+                image: 'image/m14.jpeg',
+                badge: 'Designer',
+                category: 'other'
+            },
+            {
+                name: 'Roof Insulation',
+                description: 'Thermal insulation sheets for energy-efficient buildings. Heat and moisture resistant.',
+                image: 'image/m15.jpeg',
+                badge: 'Energy Saver',
+                category: 'other'
+            },
+            {
+                name: 'Electrical Cables',
+                description: 'Multi-strand copper cables for residential and commercial wiring. Fire retardant coating.',
+                image: 'image/m16.jpeg',
+                badge: 'Safety Certified',
+                category: 'other'
+            }
+        ];
+
+        // Load materials
+        const materialsGrid = document.getElementById('materialsGrid');
+        
+        function displayMaterials(category = 'all') {
+            materialsGrid.innerHTML = '';
+            
+            const filteredMaterials = category === 'all' 
+                ? materials 
+                : materials.filter(m => m.category === category);
+            
+            filteredMaterials.forEach(material => {
+                const card = document.createElement('div');
+                card.className = 'material-card';
+                card.innerHTML = `
+                    <div class="material-image-wrapper">
+                        <img src="${material.image}" alt="${material.name}" class="material-image" onerror="this.parentElement.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; this.style.display='none';">
+                    </div>
+                    <div class="material-content">
+                        <h3 class="material-name">${material.name}</h3>
+                        <p class="material-description">${material.description}</p>
+                        <div class="material-footer">
+                            <span class="material-badge">${material.badge}</span>
+                            <span class="material-action">View Details →</span>
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', function() {
+                    alert(`${material.name}\n\n${material.description}\n\n✅ ${material.badge}\n\n📞 Contact us for pricing and availability!`);
+                });
+                
+                materialsGrid.appendChild(card);
+            });
+        }
+
+        // Initial display
+        displayMaterials();
+
+        // Category filter
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                displayMaterials(category);
+                
+                // Scroll to materials section
+                document.getElementById('materials').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Category dropdown filter
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            displayMaterials(this.value);
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+
+        function searchMaterials() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                displayMaterials('all');
+                return;
+            }
+
+            materialsGrid.innerHTML = '';
+            
+            const filteredMaterials = materials.filter(material => 
+                material.name.toLowerCase().includes(searchTerm) ||
+                material.description.toLowerCase().includes(searchTerm) ||
+                material.category.toLowerCase().includes(searchTerm)
+            );
+
+            if (filteredMaterials.length === 0) {
+                materialsGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">🔍</div>
+                        <h3 style="font-size: 24px; color: #fbbf24; margin-bottom: 10px;">No results found</h3>
+                        <p style="color: #a0a0a0; font-size: 16px;">Try searching with different keywords</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filteredMaterials.forEach(material => {
+                const card = document.createElement('div');
+                card.className = 'material-card';
+                card.innerHTML = `
+                    <div class="material-image-wrapper">
+                        <img src="${material.image}" alt="${material.name}" class="material-image" onerror="this.parentElement.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; this.style.display='none';">
+                    </div>
+                    <div class="material-content">
+                        <h3 class="material-name">${material.name}</h3>
+                        <p class="material-description">${material.description}</p>
+                        <div class="material-footer">
+                            <span class="material-badge">${material.badge}</span>
+                            <span class="material-action">View Details →</span>
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', function() {
+                    alert(`${material.name}\n\n${material.description}\n\n✅ ${material.badge}\n\n📞 Contact us for pricing and availability!`);
+                });
+                
+                materialsGrid.appendChild(card);
+            });
+
+            // Scroll to results
+            document.getElementById('materials').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Search button click
+        searchBtn.addEventListener('click', searchMaterials);
+
+        // Search on Enter key
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchMaterials();
+            }
+        });
+
+        // Clear search and reset on input clear
+        searchInput.addEventListener('input', function() {
+            if (this.value.trim() === '') {
+                displayMaterials('all');
+            }
+        });
+    </script>
+</body>
+</html>
